@@ -259,10 +259,10 @@ public final class MecanumDrive {
             maxPowerMag = Math.max(maxPowerMag, power.value());
         }
 
-        frontLeft.setPower(wheelVels.frontLeft.get(0) / maxPowerMag);
-        backLeft.setPower(wheelVels.backLeft.get(0) / maxPowerMag);
-        backRight.setPower(wheelVels.backRight.get(0) / maxPowerMag);
-        frontRight.setPower(wheelVels.frontRight.get(0) / maxPowerMag);
+        frontLeft.setPower(wheelVels.leftFront.get(0) / maxPowerMag);
+        backLeft.setPower(wheelVels.leftBack.get(0) / maxPowerMag);
+        backRight.setPower(wheelVels.rightBack.get(0) / maxPowerMag);
+        frontRight.setPower(wheelVels.rightFront.get(0) / maxPowerMag);
     }
 
     public final class FollowTrajectoryAction implements Action {
@@ -322,10 +322,10 @@ public final class MecanumDrive {
 
             final MotorFeedforward feedforward = new MotorFeedforward(PARAMS.kS,
                     PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
-            double frontLeftPower = feedforward.compute(wheelVels.frontLeft) / voltage;
-            double backLeftPower = feedforward.compute(wheelVels.backLeft) / voltage;
-            double backRightPower = feedforward.compute(wheelVels.backRight) / voltage;
-            double frontRightPower = feedforward.compute(wheelVels.frontRight) / voltage;
+            double frontLeftPower = feedforward.compute(wheelVels.leftFront) / voltage;
+            double backLeftPower = feedforward.compute(wheelVels.leftBack) / voltage;
+            double backRightPower = feedforward.compute(wheelVels.rightBack) / voltage;
+            double frontRightPower = feedforward.compute(wheelVels.rightFront) / voltage;
             mecanumCommandWriter.write(new MecanumCommandMessage(
                     voltage, frontLeftPower, backLeftPower, backRightPower, frontRightPower
             ));
@@ -413,18 +413,18 @@ public final class MecanumDrive {
             double voltage = voltageSensor.getVoltage();
             final MotorFeedforward feedforward = new MotorFeedforward(PARAMS.kS,
                     PARAMS.kV / PARAMS.inPerTick, PARAMS.kA / PARAMS.inPerTick);
-            double frontLeftPower = feedforward.compute(wheelVels.frontLeft) / voltage;
-            double backLeftPower = feedforward.compute(wheelVels.backLeft) / voltage;
-            double backRightPower = feedforward.compute(wheelVels.backRight) / voltage;
-            double frontRightPower = feedforward.compute(wheelVels.frontRight) / voltage;
+            double frontLeftPower = feedforward.compute(wheelVels.leftFront) / voltage;
+            double backLeftPower = feedforward.compute(wheelVels.leftBack) / voltage;
+            double backRightPower = feedforward.compute(wheelVels.rightBack) / voltage;
+            double frontRightPower = feedforward.compute(wheelVels.rightFront) / voltage;
             mecanumCommandWriter.write(new MecanumCommandMessage(
                     voltage, frontLeftPower, backLeftPower, backRightPower, frontRightPower
             ));
 
-            frontLeft.setPower(feedforward.compute(wheelVels.frontLeft) / voltage);
-            backLeft.setPower(feedforward.compute(wheelVels.backLeft) / voltage);
-            backRight.setPower(feedforward.compute(wheelVels.backRight) / voltage);
-            frontRight.setPower(feedforward.compute(wheelVels.frontRight) / voltage);
+            frontLeft.setPower(feedforward.compute(wheelVels.leftFront) / voltage);
+            backLeft.setPower(feedforward.compute(wheelVels.leftBack) / voltage);
+            backRight.setPower(feedforward.compute(wheelVels.rightBack) / voltage);
+            frontRight.setPower(feedforward.compute(wheelVels.rightFront) / voltage);
 
             Canvas c = p.fieldOverlay();
             drawPoseHistory(c);
