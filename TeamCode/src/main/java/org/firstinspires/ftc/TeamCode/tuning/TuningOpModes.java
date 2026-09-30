@@ -140,7 +140,7 @@ public final class TuningOpModes {
                     MecanumDrive.DriveLocalizer dl = (MecanumDrive.DriveLocalizer) md.localizer;
                     encoderGroups.add(new LynxQuadratureEncoderGroup(
                             hardwareMap.getAll(LynxModule.class),
-                            Arrays.asList(dl.leftFront, dl.leftBack, dl.rightFront, dl.rightBack)
+                            Arrays.asList(dl.frontLeft, dl.backLeft, dl.frontRight, dl.backRight)
                     ));
                     leftEncs.add(new EncoderRef(0, 0));
                     leftEncs.add(new EncoderRef(0, 1));
@@ -187,12 +187,11 @@ public final class TuningOpModes {
                         MecanumDrive.PARAMS.maxProfileAccel,
                         encoderGroups,
                         Arrays.asList(
-                                md.leftFront,
-                                md.leftBack
-                        ),
+                                md.frontLeft,
+                                md.backLeft),
                         Arrays.asList(
-                                md.rightFront,
-                                md.rightBack
+                                md.frontRight,
+                                md.backRight
                         ),
                         leftEncs,
                         rightEncs,
